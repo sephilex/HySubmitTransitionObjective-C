@@ -26,15 +26,21 @@
 
 - (void)createPresentControllerButton{
     HyLoginButton *loginButton = [[HyLoginButton alloc] initWithFrame:CGRectMake(20, CGRectGetHeight(self.view.bounds) - (40 + 80), [UIScreen mainScreen].bounds.size.width - 40, 40)];
-    [loginButton setBackgroundColor:[UIColor colorWithRed:1 green:0.f/255.0f blue:128.0f/255.0f alpha:1]];
+    [loginButton setBackgroundColor:[UIColor colorWithRed:1
+                                                    green:0.f/255.0f
+                                                     blue:128.0f/255.0f
+                                                    alpha:1]];
     [loginButton setTitle:@"登录" forState:UIControlStateNormal];
-    [loginButton addTarget:self action:@selector(PresentViewController:) forControlEvents:UIControlEventTouchUpInside];
+    [loginButton addTarget:self
+                    action:@selector(PresentViewController:)
+          forControlEvents:UIControlEventTouchUpInside];
+    
     [self.view addSubview:loginButton];
 }
 
 - (void)PresentViewController:(HyLoginButton *)button {
     typeof(self) __weak weak = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (_switchButton.on) {
             //网络正常 或者是密码账号正确跳转动画
             [button succeedAnimationWithCompletion:^{
@@ -54,10 +60,10 @@
 }
 
 - (void)didPresentControllerButtonTouch {
-    UIViewController *controller = [SecondViewController new];
-    controller.transitioningDelegate = self;
+    UIViewController *controller                 = [SecondViewController new];
+    controller.transitioningDelegate             = self;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
-    navigationController.transitioningDelegate = self;
+    navigationController.transitioningDelegate   = self;
     
     [self presentViewController:navigationController animated:YES completion:nil];
 }

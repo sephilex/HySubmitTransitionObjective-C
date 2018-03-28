@@ -207,9 +207,11 @@
 				TargetAttributes = {
 					87AD40E61B972FA8007B3214 = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = BH3VZAU2B2;
 					};
 					87AD40FF1B972FA8007B3214 = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = BH3VZAU2B2;
 						TestTargetID = 87AD40E61B972FA8007B3214;
 					};
 				};
@@ -392,6 +394,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = BH3VZAU2B2;
 				INFOPLIST_FILE = "ExampleObjective-C/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yunmai.$(PRODUCT_NAME:rfc1034identifier)";
@@ -403,6 +406,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = BH3VZAU2B2;
 				INFOPLIST_FILE = "ExampleObjective-C/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yunmai.$(PRODUCT_NAME:rfc1034identifier)";
@@ -414,6 +418,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = BH3VZAU2B2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -434,6 +439,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = BH3VZAU2B2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

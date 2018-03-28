@@ -22,12 +22,12 @@
 }
 
 - (void)createCloseButton {
-    UIImageView *imageview= [[UIImageView alloc] initWithFrame:self.view.bounds];
-    [self.view addSubview:imageview];
-    imageview.image = [UIImage imageNamed:@"Home"];
-    UITapGestureRecognizer *tap =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didCloseButtonTouch)];
+    UIImageView *imageview      = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    imageview.image             = [UIImage imageNamed:@"Home"];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didCloseButtonTouch)];
     [imageview setUserInteractionEnabled:true];
     [imageview addGestureRecognizer:tap];
+    [self.view addSubview:imageview];
 }
 
 - (void)didCloseButtonTouch {

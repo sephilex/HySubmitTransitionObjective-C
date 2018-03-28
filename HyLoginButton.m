@@ -9,7 +9,7 @@
 #import "HyLoginButton.h"
 #import "HySpinerLayer.h"
 
-@interface HyLoginButton ()
+@interface HyLoginButton ()<CAAnimationDelegate>
 
 @property (nonatomic, assign) CFTimeInterval shrinkDuration;
 
@@ -43,11 +43,17 @@
 -(void)setup {
     self.layer.cornerRadius = CGRectGetHeight(self.bounds) / 2;
     self.clipsToBounds = true;
-    [self addTarget:self action:@selector(scaleToSmall)
+    
+    [self addTarget:self
+             action:@selector(scaleToSmall)
    forControlEvents:UIControlEventTouchDown | UIControlEventTouchDragEnter];
-    [self addTarget:self action:@selector(scaleAnimation)
+    
+    [self addTarget:self
+             action:@selector(scaleAnimation)
    forControlEvents:UIControlEventTouchUpInside];
-    [self addTarget:self action:@selector(scaleToDefault)
+    
+    [self addTarget:self
+             action:@selector(scaleToDefault)
    forControlEvents:UIControlEventTouchDragExit];
 }
 
@@ -93,12 +99,12 @@
 - (void)beginAnimation {
     [self performSelector:@selector(revert) withObject:nil afterDelay:0.f];
     [self.layer addSublayer:_spinerLayer];
-    CABasicAnimation *shrinkAnim = [CABasicAnimation animationWithKeyPath:@"bounds.size.width"];
-    shrinkAnim.fromValue = @(CGRectGetWidth(self.bounds));
-    shrinkAnim.toValue = @(CGRectGetHeight(self.bounds));
-    shrinkAnim.duration = _shrinkDuration;
-    shrinkAnim.timingFunction = _shrinkCurve;
-    shrinkAnim.fillMode = kCAFillModeForwards;
+    CABasicAnimation *shrinkAnim   = [CABasicAnimation animationWithKeyPath:@"bounds.size.width"];
+    shrinkAnim.fromValue           = @(CGRectGetWidth(self.bounds));
+    shrinkAnim.toValue             = @(CGRectGetHeight(self.bounds));
+    shrinkAnim.duration            = _shrinkDuration;
+    shrinkAnim.timingFunction      = _shrinkCurve;
+    shrinkAnim.fillMode            = kCAFillModeForwards;
     shrinkAnim.removedOnCompletion = false;
     [self.layer addAnimation:shrinkAnim forKey:shrinkAnim.keyPath];
     [_spinerLayer beginAnimation];
@@ -106,25 +112,25 @@
 }
 
 - (void)failedAnimationWithCompletion:(HyAnimationCompletion)completion {
-    _animationCompletion = completion;
-    CABasicAnimation *shrinkAnim = [CABasicAnimation animationWithKeyPath:@"bounds.size.width"];
-    shrinkAnim.fromValue = @(CGRectGetHeight(self.bounds));
-    shrinkAnim.toValue = @(CGRectGetWidth(self.bounds));
-    shrinkAnim.duration = _shrinkDuration;
-    shrinkAnim.timingFunction = _shrinkCurve;
-    shrinkAnim.fillMode = kCAFillModeForwards;
+    _animationCompletion           = completion;
+    CABasicAnimation *shrinkAnim   = [CABasicAnimation animationWithKeyPath:@"bounds.size.width"];
+    shrinkAnim.fromValue           = @(CGRectGetHeight(self.bounds));
+    shrinkAnim.toValue             = @(CGRectGetWidth(self.bounds));
+    shrinkAnim.duration            = _shrinkDuration;
+    shrinkAnim.timingFunction      = _shrinkCurve;
+    shrinkAnim.fillMode            = kCAFillModeForwards;
     shrinkAnim.removedOnCompletion = false;
-    _color = self.backgroundColor;
+    _color                         = self.backgroundColor;
     
-    CABasicAnimation *backgroundColor = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
-    backgroundColor.toValue  = (__bridge id)[UIColor redColor].CGColor;
-    backgroundColor.duration = 0.1f;
-    backgroundColor.timingFunction = _shrinkCurve;
-    backgroundColor.fillMode = kCAFillModeForwards;
+    CABasicAnimation *backgroundColor   = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
+    backgroundColor.toValue             = (__bridge id)[UIColor redColor].CGColor;
+    backgroundColor.duration            = 0.1f;
+    backgroundColor.timingFunction      = _shrinkCurve;
+    backgroundColor.fillMode            = kCAFillModeForwards;
     backgroundColor.removedOnCompletion = false;
     
     CAKeyframeAnimation *keyFrame = [CAKeyframeAnimation animationWithKeyPath:@"position"];
-    CGPoint point = self.layer.position;
+    CGPoint point                 = self.layer.position;
     keyFrame.values = @[[NSValue valueWithCGPoint:CGPointMake(point.x, point.y)],
                         
                         [NSValue valueWithCGPoint:CGPointMake(point.x - 10, point.y)],
@@ -141,9 +147,9 @@
                         
                         [NSValue valueWithCGPoint:point]];
     keyFrame.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    keyFrame.duration = 0.5f;
-    keyFrame.delegate = self;
-    self.layer.position = point;
+    keyFrame.duration       = 0.5f;
+    keyFrame.delegate       = self;
+    self.layer.position     = point;
     
     [self.layer addAnimation:backgroundColor forKey:backgroundColor.keyPath];
     [self.layer addAnimation:keyFrame forKey:keyFrame.keyPath];
@@ -153,14 +159,14 @@
 }
 
 - (void)succeedAnimationWithCompletion:(HyAnimationCompletion)completion {
-    _animationCompletion = completion;
-    CABasicAnimation *expandAnim = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-    expandAnim.fromValue = @(1.0);
-    expandAnim.toValue = @(33.0);
-    expandAnim.timingFunction = _expandCurve;
-    expandAnim.duration = 0.3;
-    expandAnim.delegate = self;
-    expandAnim.fillMode = kCAFillModeForwards;
+    _animationCompletion           = completion;
+    CABasicAnimation *expandAnim   = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    expandAnim.fromValue           = @(1.0);
+    expandAnim.toValue             = @(33.0);
+    expandAnim.timingFunction      = _expandCurve;
+    expandAnim.duration            = 0.3;
+    expandAnim.delegate            = self;
+    expandAnim.fillMode            = kCAFillModeForwards;
     expandAnim.removedOnCompletion = false;
     [self.layer addAnimation:expandAnim forKey:expandAnim.keyPath];
     [_spinerLayer stopAnimation];
@@ -178,11 +184,11 @@
 }
 
 -(void)revert {
-    CABasicAnimation *backgroundColor = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
-    backgroundColor.toValue  = (__bridge id)self.backgroundColor.CGColor;
-    backgroundColor.duration = 0.1f;
-    backgroundColor.timingFunction = _shrinkCurve;
-    backgroundColor.fillMode = kCAFillModeForwards;
+    CABasicAnimation *backgroundColor   = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
+    backgroundColor.toValue             = (__bridge id)self.backgroundColor.CGColor;
+    backgroundColor.duration            = 0.1f;
+    backgroundColor.timingFunction      = _shrinkCurve;
+    backgroundColor.fillMode            = kCAFillModeForwards;
     backgroundColor.removedOnCompletion = false;
     [self.layer addAnimation:backgroundColor forKey:@"backgroundColors"];
     

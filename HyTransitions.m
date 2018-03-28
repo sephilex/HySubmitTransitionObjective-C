@@ -26,8 +26,8 @@
     self = [super init];
     if (self) {
         _transitionDuration = transitionDuration;
-        _startingAlpha = startingAlpha;
-        _isPush = isPush;
+        _startingAlpha      = startingAlpha;
+        _isPush             = isPush;
     }
     return self;
 }
@@ -40,31 +40,31 @@
 
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext{
     UIView *containerView = [transitionContext containerView];
-    UIView *toView = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey].view;
-    UIView *fromView = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey].view;
+    UIView *toView        = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey].view;
+    UIView *fromView      = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey].view;
     
     if (_isPush) {
-        toView.alpha = _startingAlpha;
+        toView.alpha   = _startingAlpha;
         fromView.alpha = 1.0f;
         
         [containerView addSubview:toView];
         
         [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
-            toView.alpha = 1.0f;
+            toView.alpha   = 1.0f;
             fromView.alpha = 0.0f;
         } completion:^(BOOL finished) {
             fromView.alpha = 1.0f;
             [transitionContext completeTransition:true];
         }];
     } else {
-        fromView.alpha = 1.0f;
-        toView.alpha = 0;
+        fromView.alpha     = 1.0f;
+        toView.alpha       = 0;
         fromView.transform = CGAffineTransformMakeScale(1, 1);
         [containerView addSubview:toView];
         [UIView animateWithDuration:0.3 animations:^{
             fromView.transform = CGAffineTransformMakeScale(3, 3);
-            fromView.alpha = 0.0f;
-            toView.alpha = 1.0f;
+            fromView.alpha     = 0.0f;
+            toView.alpha       = 1.0f;
         } completion:^(BOOL finished) {
             fromView.alpha = 1.0f;
             [transitionContext completeTransition:true];
